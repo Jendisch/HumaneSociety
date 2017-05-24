@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="LINQtoSQL">
+  <DataContextMoniker Name="/LINQtoSQLDataContext" />
+  <nestedChildShapes>
+    <classShape Id="fcbccf9c-1e42-483a-b9ce-b21ea45f6eb9" absoluteBounds="7.5, 1, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/LINQtoSQLDataContext/Trait" />
+      <nestedChildShapes>
+        <elementListCompartment Id="41a04660-9950-4d7a-9963-bb4af7408af0" absoluteBounds="7.515, 1.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b292f8d7-1802-4ef4-b1b5-f2a93ce6e96e" absoluteBounds="6.5, 4.125, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/LINQtoSQLDataContext/Room" />
+      <nestedChildShapes>
+        <elementListCompartment Id="76f75d3d-5fae-4a63-9ebe-f352217973f5" absoluteBounds="6.5150000000000006, 4.585, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5e680eb7-f731-46fb-958a-80c7b7c62784" absoluteBounds="2.25, 1.75, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/LINQtoSQLDataContext/Health" />
+      <nestedChildShapes>
+        <elementListCompartment Id="66b4560b-d10c-44cd-84f0-e6595a47d856" absoluteBounds="2.2649999999999997, 2.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9f5f0e4c-76e6-4f25-93db-2c7c2b766c4e" absoluteBounds="4.875, 0.875, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/LINQtoSQLDataContext/Animal" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b775dbbe-716d-4c85-9ec0-2c6db77edee8" absoluteBounds="4.89, 1.335, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.875 : 1.88544840494792); (7.5 : 1.88544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/LINQtoSQLDataContext/Animal/Animal_Trait" />
+      <nodes>
+        <classShapeMoniker Id="9f5f0e4c-76e6-4f25-93db-2c7c2b766c4e" />
+        <classShapeMoniker Id="fcbccf9c-1e42-483a-b9ce-b21ea45f6eb9" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.6874995 : 3.22280110677083); (5.6874995 : 5.01044840494792); (6.5 : 5.01044840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/LINQtoSQLDataContext/Animal/Animal_Room" />
+      <nodes>
+        <classShapeMoniker Id="9f5f0e4c-76e6-4f25-93db-2c7c2b766c4e" />
+        <classShapeMoniker Id="b292f8d7-1802-4ef4-b1b5-f2a93ce6e96e" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.875 : 2.48640055338542); (4.25 : 2.48640055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/LINQtoSQLDataContext/Animal/Animal_Health" />
+      <nodes>
+        <classShapeMoniker Id="9f5f0e4c-76e6-4f25-93db-2c7c2b766c4e" />
+        <classShapeMoniker Id="5e680eb7-f731-46fb-958a-80c7b7c62784" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

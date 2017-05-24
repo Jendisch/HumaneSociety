@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Humane_Society" Class="LINQtoSQLDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-NUQ639N;Initial Catalog=Humane_Society;Integrated Security=True" SettingsObjectName="Humane_Society.Properties.Settings" SettingsPropertyName="Humane_SocietyConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Traits" Member="Traits">
+    <Type Name="Trait">
+      <Column Name="traitId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="size" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="activityLevel" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="color" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="animalId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Animal_Trait" Member="Animal" ThisKey="animalId" OtherKey="animalId" Type="Animal" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Room" Member="Rooms">
+    <Type Name="Room">
+      <Column Name="roomId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="size" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="occupied" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="animalId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="roomNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Animal_Room" Member="Animal" ThisKey="animalId" OtherKey="animalId" Type="Animal" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Health" Member="Healths">
+    <Type Name="Health">
+      <Column Name="healthId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="receivedShots" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="foodConsumptionPerWeek" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="animalId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Animal_Health" Member="Animal" ThisKey="animalId" OtherKey="animalId" Type="Animal" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Animal" Member="Animals">
+    <Type Name="Animal">
+      <Column Name="animalId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="breed" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="age" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="entryDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="adopted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="type" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="Animal_Trait" Member="Traits" ThisKey="animalId" OtherKey="animalId" Type="Trait" />
+      <Association Name="Animal_Room" Member="Rooms" ThisKey="animalId" OtherKey="animalId" Type="Room" />
+      <Association Name="Animal_Health" Member="Healths" ThisKey="animalId" OtherKey="animalId" Type="Health" />
+    </Type>
+  </Table>
+</Database>

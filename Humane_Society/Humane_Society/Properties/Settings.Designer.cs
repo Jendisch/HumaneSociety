@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HumaneSociety.Properties {
+namespace Humane_Society.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -31,6 +31,17 @@ namespace HumaneSociety.Properties {
         public string HumaneSocietyConnectionString {
             get {
                 return ((string)(this["HumaneSocietyConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-NUQ639N;Initial Catalog=Humane_Society;Integrated Security=Tr" +
+            "ue")]
+        public string Humane_SocietyConnectionString {
+            get {
+                return ((string)(this["Humane_SocietyConnectionString"]));
             }
         }
     }
