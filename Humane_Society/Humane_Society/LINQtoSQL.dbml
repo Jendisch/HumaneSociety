@@ -39,9 +39,28 @@
       <Column Name="entryDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="adopted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="type" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="adoptedBy" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="adoptedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="gender" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Association Name="Animal_Trait" Member="Traits" ThisKey="animalId" OtherKey="animalId" Type="Trait" />
       <Association Name="Animal_Room" Member="Rooms" ThisKey="animalId" OtherKey="animalId" Type="Room" />
       <Association Name="Animal_Health" Member="Healths" ThisKey="animalId" OtherKey="animalId" Type="Health" />
+      <Association Name="Animal_Adopter" Member="Adopters" ThisKey="animalId" OtherKey="adoptedAnimalId" Type="Adopter" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Adopter" Member="Adopters">
+    <Type Name="Adopter">
+      <Column Name="adopterId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="phoneNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="married" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="hasKids" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="adoptedAnimalId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="adoptionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="paidAdoptionFee" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="firstName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="lastName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="Animal_Adopter" Member="Animal" ThisKey="adoptedAnimalId" OtherKey="animalId" Type="Animal" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

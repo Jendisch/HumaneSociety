@@ -13,13 +13,12 @@ namespace HumaneSociety
         static void Main(string[] args)
         {
 
-            //MainMenu menu = new MainMenu();
-            //menu.InitiateMenu();
-            //Console.ReadKey();
+            MainMenu menu = new MainMenu();
+            menu.InitiateMenu();
 
-            Employee e = new Employee();
-            e.CheckIfRoomsAreAvailable();
-            Console.ReadKey();
+            //Employee e = new Employee();
+            //e.DisplayAllActiveAnimalsAndTheirAnimalId();
+            //Console.ReadKey();
 
 
 

@@ -10,15 +10,13 @@ namespace Humane_Society
     {
 
         Employee employee;
+        Adopt adopter;
 
 
         public void InitiateMenu()
         {
             UserInterface.WelcomeGreetingToMenu();
             EnterEmployeeMenuOrAdopterMenu();
-
-
-
         }
 
         private void EnterEmployeeMenuOrAdopterMenu()
@@ -28,9 +26,13 @@ namespace Humane_Society
             {
                 case "employee":
                     GoToEmployeeMenu();
+                    Console.Clear();
+                    EnterEmployeeMenuOrAdopterMenu();
                     break;
                 case "adopter":
-                    GoToAdopterMenu();
+                    adopter.DecideWhatToDoAsAnAdopter();
+                    Console.Clear();
+                    EnterEmployeeMenuOrAdopterMenu();
                     break;
                 case "exit":
                     break;
@@ -43,7 +45,7 @@ namespace Humane_Society
 
         private void GoToEmployeeMenu()
         {
-            string choice = UserInterface.TypeEmployeePassword();
+            string choice = UserInterface.TypeEmployeePassword().ToLower();
             switch (choice)
             {
                 case "answer":
@@ -58,11 +60,6 @@ namespace Humane_Society
                     GoToEmployeeMenu();
                     break;
             }
-        }
-
-        private void GoToAdopterMenu()
-        {
-
         }
 
 

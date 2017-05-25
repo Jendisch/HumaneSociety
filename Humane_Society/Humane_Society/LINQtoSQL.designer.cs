@@ -42,6 +42,9 @@ namespace Humane_Society
     partial void InsertAnimal(Animal instance);
     partial void UpdateAnimal(Animal instance);
     partial void DeleteAnimal(Animal instance);
+    partial void InsertAdopter(Adopter instance);
+    partial void UpdateAdopter(Adopter instance);
+    partial void DeleteAdopter(Adopter instance);
     #endregion
 		
 		public LINQtoSQLDataContext() : 
@@ -103,6 +106,14 @@ namespace Humane_Society
 			get
 			{
 				return this.GetTable<Animal>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Adopter> Adopters
+		{
+			get
+			{
+				return this.GetTable<Adopter>();
 			}
 		}
 	}
@@ -702,11 +713,19 @@ namespace Humane_Society
 		
 		private string _type;
 		
+		private string _adoptedBy;
+		
+		private System.Nullable<System.DateTime> _adoptedDate;
+		
+		private string _gender;
+		
 		private EntitySet<Trait> _Traits;
 		
 		private EntitySet<Room> _Rooms;
 		
 		private EntitySet<Health> _Healths;
+		
+		private EntitySet<Adopter> _Adopters;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -728,6 +747,12 @@ namespace Humane_Society
     partial void OnadoptedChanged();
     partial void OntypeChanging(string value);
     partial void OntypeChanged();
+    partial void OnadoptedByChanging(string value);
+    partial void OnadoptedByChanged();
+    partial void OnadoptedDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnadoptedDateChanged();
+    partial void OngenderChanging(string value);
+    partial void OngenderChanged();
     #endregion
 		
 		public Animal()
@@ -735,6 +760,7 @@ namespace Humane_Society
 			this._Traits = new EntitySet<Trait>(new Action<Trait>(this.attach_Traits), new Action<Trait>(this.detach_Traits));
 			this._Rooms = new EntitySet<Room>(new Action<Room>(this.attach_Rooms), new Action<Room>(this.detach_Rooms));
 			this._Healths = new EntitySet<Health>(new Action<Health>(this.attach_Healths), new Action<Health>(this.detach_Healths));
+			this._Adopters = new EntitySet<Adopter>(new Action<Adopter>(this.attach_Adopters), new Action<Adopter>(this.detach_Adopters));
 			OnCreated();
 		}
 		
@@ -898,6 +924,66 @@ namespace Humane_Society
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adoptedBy", DbType="VarChar(MAX)")]
+		public string adoptedBy
+		{
+			get
+			{
+				return this._adoptedBy;
+			}
+			set
+			{
+				if ((this._adoptedBy != value))
+				{
+					this.OnadoptedByChanging(value);
+					this.SendPropertyChanging();
+					this._adoptedBy = value;
+					this.SendPropertyChanged("adoptedBy");
+					this.OnadoptedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adoptedDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> adoptedDate
+		{
+			get
+			{
+				return this._adoptedDate;
+			}
+			set
+			{
+				if ((this._adoptedDate != value))
+				{
+					this.OnadoptedDateChanging(value);
+					this.SendPropertyChanging();
+					this._adoptedDate = value;
+					this.SendPropertyChanged("adoptedDate");
+					this.OnadoptedDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_gender", DbType="VarChar(MAX)")]
+		public string gender
+		{
+			get
+			{
+				return this._gender;
+			}
+			set
+			{
+				if ((this._gender != value))
+				{
+					this.OngenderChanging(value);
+					this.SendPropertyChanging();
+					this._gender = value;
+					this.SendPropertyChanged("gender");
+					this.OngenderChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Animal_Trait", Storage="_Traits", ThisKey="animalId", OtherKey="animalId")]
 		public EntitySet<Trait> Traits
 		{
@@ -934,6 +1020,19 @@ namespace Humane_Society
 			set
 			{
 				this._Healths.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Animal_Adopter", Storage="_Adopters", ThisKey="animalId", OtherKey="adoptedAnimalId")]
+		public EntitySet<Adopter> Adopters
+		{
+			get
+			{
+				return this._Adopters;
+			}
+			set
+			{
+				this._Adopters.Assign(value);
 			}
 		}
 		
@@ -991,6 +1090,337 @@ namespace Humane_Society
 		{
 			this.SendPropertyChanging();
 			entity.Animal = null;
+		}
+		
+		private void attach_Adopters(Adopter entity)
+		{
+			this.SendPropertyChanging();
+			entity.Animal = this;
+		}
+		
+		private void detach_Adopters(Adopter entity)
+		{
+			this.SendPropertyChanging();
+			entity.Animal = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Adopter")]
+	public partial class Adopter : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _adopterId;
+		
+		private System.Nullable<int> _phoneNumber;
+		
+		private System.Nullable<bool> _married;
+		
+		private System.Nullable<bool> _hasKids;
+		
+		private System.Nullable<int> _adoptedAnimalId;
+		
+		private string _email;
+		
+		private System.Nullable<System.DateTime> _adoptionDate;
+		
+		private System.Nullable<bool> _paidAdoptionFee;
+		
+		private string _firstName;
+		
+		private string _lastName;
+		
+		private EntityRef<Animal> _Animal;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnadopterIdChanging(int value);
+    partial void OnadopterIdChanged();
+    partial void OnphoneNumberChanging(System.Nullable<int> value);
+    partial void OnphoneNumberChanged();
+    partial void OnmarriedChanging(System.Nullable<bool> value);
+    partial void OnmarriedChanged();
+    partial void OnhasKidsChanging(System.Nullable<bool> value);
+    partial void OnhasKidsChanged();
+    partial void OnadoptedAnimalIdChanging(System.Nullable<int> value);
+    partial void OnadoptedAnimalIdChanged();
+    partial void OnemailChanging(string value);
+    partial void OnemailChanged();
+    partial void OnadoptionDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnadoptionDateChanged();
+    partial void OnpaidAdoptionFeeChanging(System.Nullable<bool> value);
+    partial void OnpaidAdoptionFeeChanged();
+    partial void OnfirstNameChanging(string value);
+    partial void OnfirstNameChanged();
+    partial void OnlastNameChanging(string value);
+    partial void OnlastNameChanged();
+    #endregion
+		
+		public Adopter()
+		{
+			this._Animal = default(EntityRef<Animal>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adopterId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int adopterId
+		{
+			get
+			{
+				return this._adopterId;
+			}
+			set
+			{
+				if ((this._adopterId != value))
+				{
+					this.OnadopterIdChanging(value);
+					this.SendPropertyChanging();
+					this._adopterId = value;
+					this.SendPropertyChanged("adopterId");
+					this.OnadopterIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phoneNumber", DbType="Int")]
+		public System.Nullable<int> phoneNumber
+		{
+			get
+			{
+				return this._phoneNumber;
+			}
+			set
+			{
+				if ((this._phoneNumber != value))
+				{
+					this.OnphoneNumberChanging(value);
+					this.SendPropertyChanging();
+					this._phoneNumber = value;
+					this.SendPropertyChanged("phoneNumber");
+					this.OnphoneNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_married", DbType="Bit")]
+		public System.Nullable<bool> married
+		{
+			get
+			{
+				return this._married;
+			}
+			set
+			{
+				if ((this._married != value))
+				{
+					this.OnmarriedChanging(value);
+					this.SendPropertyChanging();
+					this._married = value;
+					this.SendPropertyChanged("married");
+					this.OnmarriedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hasKids", DbType="Bit")]
+		public System.Nullable<bool> hasKids
+		{
+			get
+			{
+				return this._hasKids;
+			}
+			set
+			{
+				if ((this._hasKids != value))
+				{
+					this.OnhasKidsChanging(value);
+					this.SendPropertyChanging();
+					this._hasKids = value;
+					this.SendPropertyChanged("hasKids");
+					this.OnhasKidsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adoptedAnimalId", DbType="Int")]
+		public System.Nullable<int> adoptedAnimalId
+		{
+			get
+			{
+				return this._adoptedAnimalId;
+			}
+			set
+			{
+				if ((this._adoptedAnimalId != value))
+				{
+					if (this._Animal.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnadoptedAnimalIdChanging(value);
+					this.SendPropertyChanging();
+					this._adoptedAnimalId = value;
+					this.SendPropertyChanged("adoptedAnimalId");
+					this.OnadoptedAnimalIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="VarChar(MAX)")]
+		public string email
+		{
+			get
+			{
+				return this._email;
+			}
+			set
+			{
+				if ((this._email != value))
+				{
+					this.OnemailChanging(value);
+					this.SendPropertyChanging();
+					this._email = value;
+					this.SendPropertyChanged("email");
+					this.OnemailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_adoptionDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> adoptionDate
+		{
+			get
+			{
+				return this._adoptionDate;
+			}
+			set
+			{
+				if ((this._adoptionDate != value))
+				{
+					this.OnadoptionDateChanging(value);
+					this.SendPropertyChanging();
+					this._adoptionDate = value;
+					this.SendPropertyChanged("adoptionDate");
+					this.OnadoptionDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_paidAdoptionFee", DbType="Bit")]
+		public System.Nullable<bool> paidAdoptionFee
+		{
+			get
+			{
+				return this._paidAdoptionFee;
+			}
+			set
+			{
+				if ((this._paidAdoptionFee != value))
+				{
+					this.OnpaidAdoptionFeeChanging(value);
+					this.SendPropertyChanging();
+					this._paidAdoptionFee = value;
+					this.SendPropertyChanged("paidAdoptionFee");
+					this.OnpaidAdoptionFeeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_firstName", DbType="VarChar(MAX)")]
+		public string firstName
+		{
+			get
+			{
+				return this._firstName;
+			}
+			set
+			{
+				if ((this._firstName != value))
+				{
+					this.OnfirstNameChanging(value);
+					this.SendPropertyChanging();
+					this._firstName = value;
+					this.SendPropertyChanged("firstName");
+					this.OnfirstNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lastName", DbType="VarChar(MAX)")]
+		public string lastName
+		{
+			get
+			{
+				return this._lastName;
+			}
+			set
+			{
+				if ((this._lastName != value))
+				{
+					this.OnlastNameChanging(value);
+					this.SendPropertyChanging();
+					this._lastName = value;
+					this.SendPropertyChanged("lastName");
+					this.OnlastNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Animal_Adopter", Storage="_Animal", ThisKey="adoptedAnimalId", OtherKey="animalId", IsForeignKey=true)]
+		public Animal Animal
+		{
+			get
+			{
+				return this._Animal.Entity;
+			}
+			set
+			{
+				Animal previousValue = this._Animal.Entity;
+				if (((previousValue != value) 
+							|| (this._Animal.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Animal.Entity = null;
+						previousValue.Adopters.Remove(this);
+					}
+					this._Animal.Entity = value;
+					if ((value != null))
+					{
+						value.Adopters.Add(this);
+						this._adoptedAnimalId = value.animalId;
+					}
+					else
+					{
+						this._adoptedAnimalId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Animal");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }
