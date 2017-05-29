@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace Humane_Society
 {
-    class MainMenu
+    class HumaneSociety
     {
 
         Employee employee;
-        Adopt adopter;
-
+        Adopt adopt;
 
         public void InitiateMenu()
         {
@@ -27,12 +26,11 @@ namespace Humane_Society
                 case "employee":
                     GoToEmployeeMenu();
                     Console.Clear();
-                    EnterEmployeeMenuOrAdopterMenu();
                     break;
                 case "adopter":
-                    adopter.DecideWhatToDoAsAnAdopter();
+                    adopt = new Adopt();
+                    adopt.DecideWhatToDoAsAnAdopter();
                     Console.Clear();
-                    EnterEmployeeMenuOrAdopterMenu();
                     break;
                 case "exit":
                     break;
@@ -61,9 +59,6 @@ namespace Humane_Society
                     break;
             }
         }
-
-
-
 
 
     }

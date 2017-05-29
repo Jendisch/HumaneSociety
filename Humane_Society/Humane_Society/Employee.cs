@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Collections.IEnumerable;
@@ -11,6 +12,7 @@ namespace Humane_Society
     {
 
         LINQtoSQLDataContext db = new LINQtoSQLDataContext();
+        CSVTransfer newCSV;
 
 
         public void DecideWhatToDoAsAnEmployee()
@@ -19,8 +21,7 @@ namespace Humane_Society
             switch (choice)
             {
                 case 1:
-                    //Import transfer files from another humane society
-                    //ImputTransferHumaneSocietyDataIntoDatabase();
+                    InputCSVDataIntoDatabase();
                     break;
                 case 2:
                     CheckIfRoomsAreAvailable();
@@ -46,11 +47,14 @@ namespace Humane_Society
             }
         }
 
-        //private void ImputTransferHumaneSocietyDataIntoDatabase()
-        //{
-
-        //}
-
+        private void InputCSVDataIntoDatabase()
+        {
+            newCSV = new CSVTransfer();
+            string file = newCSV.GetFilePathName();
+            newCSV.ImportCSV(file);
+            UserInterface.PressAnyKeyToContinue();
+            DecideWhatToDoAsAnEmployee();
+        }
 
         private void CheckIfRoomsAreAvailable()
         {
@@ -131,7 +135,7 @@ namespace Humane_Society
         
 
 
-        private Room FindFirstRoomAvailableToAddNewAnimalTo()
+        public Room FindFirstRoomAvailableToAddNewAnimalTo()
         {
             var rooms = db.GetTable<Room>();
             var first = from r in rooms
@@ -141,7 +145,7 @@ namespace Humane_Society
             return firstRoom;
         }
 
-        private void AssignRoomVariables(Room firstRoom, int animalId, string traitsSize)
+        public void AssignRoomVariables(Room firstRoom, int animalId, string traitsSize)
         {
             firstRoom.size = traitsSize;
             firstRoom.occupied = true;
@@ -240,7 +244,7 @@ namespace Humane_Society
             Console.Clear();
             var animals = db.GetTable<Animal>();
             var animalGroups = animals.Select(i => i.type).Distinct().Count();
-            var qry = from a in db.Animals
+            var group = from a in db.Animals
                       group a by a.type
                       into b
                       select new
@@ -248,7 +252,7 @@ namespace Humane_Society
                           animalGroup = b.Key,
                           count = b.Select(x => x.animalId).Distinct().Count()
                       };
-            foreach (var row in qry.OrderBy(x => x.animalGroup))
+            foreach (var row in group.OrderBy(x => x.animalGroup))
             {
                 Console.WriteLine($"{row.animalGroup}: { row.count}");
             }

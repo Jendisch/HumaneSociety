@@ -37,7 +37,7 @@ namespace Humane_Society
 
         public static string AskIfEmployeeOrPotentialAdopter()
         {
-            Console.WriteLine("Are you an 'employee' of Animal Mills R' Us or a potential 'adopter'? Please input one of the two choices and press any key to continue.");
+            Console.WriteLine("Are you an 'employee' of Animal Mills R' Us or a potential 'adopter'? \nPlease input one of the two choices or type 'exit' to leave the humane society.");
             string choice = Console.ReadLine();
             return choice;
         }
@@ -155,7 +155,7 @@ namespace Humane_Society
 
 
 
-        //Employee - Adding an animal responses
+        //Employee - Adding in animal responses
 
 
 
@@ -414,6 +414,7 @@ namespace Humane_Society
 
         public static string AskIfPotentialAdopterHasFilledOutAFormYet()
         {
+            Console.Clear();
             Console.WriteLine("Have you filled out an adoption form yet? Please type 'yes' or 'no'. If you'd like to return to the precious menu type 'back'.");
             string choice = Console.ReadLine().ToLower();
             return choice;
@@ -459,14 +460,31 @@ namespace Humane_Society
             }
         }
 
-        public static int AskForAdopterPhoneNumber()
+        public static string AskForAdopterPassword()
+        {
+            try
+            {
+                Console.Clear();
+                Console.WriteLine("Please enter a password for your profile.");
+                string choice = Console.ReadLine();
+                return choice;
+            }
+            catch
+            {
+                DisplayWrongKeyTyped();
+                PressAnyKeyToContinue();
+                return AskForAdopterPassword();
+            }
+        }
+
+        public static double AskForAdopterPhoneNumber()
         {
             try
             {
                 Console.Clear();
                 Console.WriteLine("Please enter a phone number that's best to reach you at. Please enter your number including the area code but excluding the dashes (ex. 2625551234).");
                 string choice = Console.ReadLine();
-                int number = int.Parse(choice);
+                double number = double.Parse(choice);
                 return number;
             }
             catch
@@ -561,11 +579,11 @@ namespace Humane_Society
             }
         }
 
-        public static string ThankAdopterForFillingOutTheForm()
+        public static string IntroduceAdoptertoFindingAnimalsBasedOnTraits()
         {
             try
             {
-                Console.WriteLine("Thanks for filling out the application form! Would you like to begin your traits search through our animals that are available for adoption? Please enter 'yes' or 'no'.");
+                Console.WriteLine("Would you like to begin your traits search through our animals that are available for adoption? Please enter 'yes' or 'no'.");
                 string choice = Console.ReadLine().ToLower();
                 return choice;
             }
@@ -573,7 +591,7 @@ namespace Humane_Society
             {
                 DisplayWrongKeyTyped();
                 PressAnyKeyToContinue();
-                return ThankAdopterForFillingOutTheForm();
+                return IntroduceAdoptertoFindingAnimalsBasedOnTraits();
             }
         }
 
@@ -668,6 +686,93 @@ namespace Humane_Society
                 return AskAdopterWhatAnimalActivityLevelTheyAreLookingFor();
             }
         }
+
+        public static string DisplayNoAnimalsFittingCriteria()
+        {
+            try
+            {
+                Console.Clear();
+                Console.WriteLine("Sorry we couldn't find any animals matching all of your search criteria.");
+                Console.WriteLine("Would you like to see a 'list' of all of our animals, 'redo' your trait search, or 'exit' the current menu and go back to the main adopter menu.?");
+                Console.WriteLine("Please enter 'list', 'redo', or 'exit'.");
+                string choice = Console.ReadLine().ToLower();
+                if (choice == "list")
+                {
+                    return choice;
+                }
+                else if (choice == "redo")
+                {
+                    return choice;
+                }
+                else if (choice == "exit")
+                {
+                    return choice;
+                }
+                else
+                {
+                    DisplayWrongKeyTyped();
+                    PressAnyKeyToContinue();
+                    return DisplayNoAnimalsFittingCriteria();
+                }
+            }
+            catch
+            {
+                DisplayWrongKeyTyped();
+                PressAnyKeyToContinue();
+                return DisplayNoAnimalsFittingCriteria();
+            }
+        }
+
+        public static string AskAdopterIfTheyWantToAdopt()
+        {
+            Console.WriteLine("\nDo you want to adopt an animal above? Please answer 'yes' or 'no'.");
+            string choice = Console.ReadLine().ToLower();
+            return choice;
+        }
+
+        public static int GetAnimalIdNumberFromAdopter()
+        {
+            Console.WriteLine("Please enter the animal id number of the animal you'd like to adopt!");
+            string choice = Console.ReadLine();
+            int number = int.Parse(choice);
+            return number;
+        }
+
+        public static string ConfirmAdoptionForAnimal(double? animalPrice)
+        {
+            Console.WriteLine($"Please type 'adopt' to move forward with the adoption and process your payment of ${animalPrice}.00. Type 'cancel' to cancel the adoption and return to the menu.");
+            string choice = Console.ReadLine().ToLower();
+            return choice;
+        }
+
+        public static string AskAdopterForPassword()
+        {
+            Console.WriteLine("Please enter your profile password so we can find your previous application.");
+            string choice = Console.ReadLine();
+            return choice;
+        }
+
+        public static void CongratulateAdopter()
+        {
+            Console.WriteLine("Congratulations on your new addition to your family! Please come again if you'd like to adopt another animal.");
+            PressAnyKeyToContinue();
+        }
+
+
+
+        //CSVTransfer
+
+
+
+
+        public static string GetTheFilePathName()
+        {
+            Console.WriteLine("Enter the path to the CSV file and press any key to continue: ");
+            string choice = Console.ReadLine();
+            return choice;
+        }
+
+
 
 
     }
