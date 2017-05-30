@@ -13,8 +13,6 @@ namespace Humane_Society
     {
 
         LINQtoSQLDataContext db = new LINQtoSQLDataContext();
-        Employee employee = new Employee();
-        Room roomForTransferAnimal;
 
         public string GetFilePathName()
         {
@@ -59,13 +57,30 @@ namespace Humane_Society
                 health.animalId = animal.animalId;
                 db.Traits.InsertOnSubmit(traits);
                 db.Healths.InsertOnSubmit(health);
-                roomForTransferAnimal = employee.FindFirstRoomAvailableToAddNewAnimalTo();
-                employee.AssignRoomVariables(roomForTransferAnimal, animal.animalId, traits.size);
+                Room roomForTransferAnimal = LocateCorrectRoomToAssignToNewAnimal();
+                UpdateRoomVariables(roomForTransferAnimal, animal.animalId, traits.size);
                 db.SubmitChanges();
             }
             Console.WriteLine("The file of new animals was successfully added to the database.\n\n\n");
         }
 
+
+        public Room LocateCorrectRoomToAssignToNewAnimal()
+        {
+            var rooms = db.GetTable<Room>();
+            var first = from r in rooms
+                        where r.occupied == false
+                        select r;
+            var firstRoom = first.First(f => f.occupied == false);
+            return firstRoom;
+        }
+
+        public void UpdateRoomVariables(Room firstRoom, int animalId, string traitsSize)
+        {
+            firstRoom.size = traitsSize;
+            firstRoom.occupied = true;
+            firstRoom.animalId = animalId;
+        }
 
     } 
 }

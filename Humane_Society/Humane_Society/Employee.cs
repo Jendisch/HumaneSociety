@@ -243,11 +243,12 @@ namespace Humane_Society
         {
             Console.Clear();
             var animals = db.GetTable<Animal>();
-            var animalGroups = animals.Select(i => i.type).Distinct().Count();
-            var group = from a in db.Animals
-                      group a by a.type
-                      into b
-                      select new
+            var currentAnimals = animals.Where(a => a.adopted == false);
+            var animalGroups = currentAnimals.Select(i => i.type).Distinct().Count();
+            var group = from a in currentAnimals
+                        group a by a.type
+                        into b
+                        select new
                       {
                           animalGroup = b.Key,
                           count = b.Select(x => x.animalId).Distinct().Count()

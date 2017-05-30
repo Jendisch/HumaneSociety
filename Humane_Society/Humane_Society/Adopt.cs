@@ -292,12 +292,19 @@ namespace Humane_Society
 
         private void TakeAdoptedAnimalOutOfItsRoom()
         {
-            var rooms = db.GetTable<Room>();
-            var room = from r in rooms
-                       where r.animalId == animalToAdopt.animalId
-                       select r;
-            Room animalRoom = room.First();
-            animalRoom.occupied = false;
+            try
+            {
+                var rooms = db.GetTable<Room>();
+                var room = from r in rooms
+                           where r.animalId == animalToAdopt.animalId
+                           select r;
+                Room animalRoom = room.First();
+                animalRoom.occupied = false;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         private void PrintOutReceiptAndTransferInformationToDatabase()
